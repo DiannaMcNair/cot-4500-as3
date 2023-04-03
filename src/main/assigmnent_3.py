@@ -131,14 +131,14 @@ y_i = 1
 n = 10
 
 answer = euler_method(function, x_i, x_f, y_i, n)
-print(answer)
+print("%.5f" % answer)
 
 
 #Runge-Kutta
     #function: t - y^2, range: 0<t<2, iterations: 10, point: f(0)=1
 
 answer = runge_kutta(function, x_i, x_f, y_i, n)
-print(answer)
+print("%.5f" % answer)
 
 
 #Use Gaussian elimination and backward substitution solve the following
@@ -158,7 +158,7 @@ matrix = np.array([[1, 1, 0, 3], [2, 1, -1, 1], [3, -1, -1, 2], [-1, 2, 3, -1]])
 
     #Print out the matrix determinant
 answer4a = determinant(matrix)
-print(answer4a)
+print("%.5f" % answer4a)
 
     #Print out the L matrix
     #Print out the U matrix
