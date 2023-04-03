@@ -120,6 +120,39 @@ def LU_decomposition(matrixA):
     print(matrix_L)
     print(matrix_U)
 
+def is_diaginally_dominate(matrix):
+    size = len(matrix)
+    diagonals = []
+    sums = []
+
+    for i in range(size):
+        diagonals.append(matrix[i][i])
+        np.delete(matrix[i], i)
+        sums.append(sum(matrix[i]))
+
+    for i in range(size):
+        if diagonals[i] >= sums[i]:
+            return True
+        else:
+            return False
+
+def is_positive_definite(matrix):
+    size = len(matrix)
+    #check symmetric: transpose = og matrix?
+    transpose = np.zeros((size, size))
+    for i in range(len(matrix)):
+        for j in range(len(matrix)):
+            transpose[i, j] = matrix[j, i]
+
+    if np.array_equal(transpose, matrix) != True:
+        return False
+
+    #find eigenvalues
+    eigenvalues, eigenvectors = np.linalg.eig(matrix)
+    if all(i > 0 for i in eigenvalues):
+        return True
+    else:
+        return False
 
 
 #Euler's Method
@@ -150,10 +183,7 @@ print(answer3)
 
 
 #Implement LU Factorization for the following matrix and do the following
-        #1 1 0 3
-        #2 1 −1 1
-        #3 −1 −1 2
-        #−1 2 3 −1
+
 matrix = np.array([[1, 1, 0, 3], [2, 1, -1, 1], [3, -1, -1, 2], [-1, 2, 3, -1]])
 
     #Print out the matrix determinant
@@ -163,3 +193,17 @@ print("%.5f" % answer4a)
     #Print out the L matrix
     #Print out the U matrix
 LU_decomposition(matrix)
+
+
+#Determine if the following matrix is diagonally dominate
+
+matrix = np.array([[9, 0, 5, 2, 1], [3, 9, 1, 2, 1], [0, 1, 7, 2, 3], [4, 2, 3, 12, 2], [3, 2, 4, 0, 8]])
+answer5 = is_diaginally_dominate(matrix)
+print(answer5)
+
+
+#Determine if the matrix is a positive definite.
+
+matrix = np.array([[2, 2, 1], [2, 3, 0], [1, 0, 2]])
+answer6 = is_positive_definite(matrix)
+print(answer6)
