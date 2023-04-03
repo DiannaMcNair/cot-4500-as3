@@ -100,6 +100,27 @@ def determinant(matrix):
 
     return result
 
+def LU_decomposition(matrixA):
+    size = len(matrixA)
+
+    matrix_L = np.identity(size)
+    matrix_U = matrixA
+
+    #make all elements below pivot points 0
+    for j in range(size):
+        if matrix_U[j][j] == 0:
+            break
+        for i in range(j, size-1):
+
+            factor = matrix_U[i+1][j]/matrix_U[j][j]
+            matrix_U[i+1] = matrix_U[i+1] - (factor*matrix_U[j])
+
+            matrix_L[i+1][j] = factor
+
+    print(matrix_L)
+    print(matrix_U)
+
+
 
 #Euler's Method
     #function: t - y^2, range: 0<t<2, iterations: 10, point: f(0)=1
@@ -138,3 +159,7 @@ matrix = np.array([[1, 1, 0, 3], [2, 1, -1, 1], [3, -1, -1, 2], [-1, 2, 3, -1]])
     #Print out the matrix determinant
 answer4a = determinant(matrix)
 print(answer4a)
+
+    #Print out the L matrix
+    #Print out the U matrix
+LU_decomposition(matrix)
