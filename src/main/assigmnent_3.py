@@ -73,6 +73,32 @@ def gaussian_elimination(matrix):
 
     return result
 
+def determinant(matrix):
+    size = len(matrix)
+
+    if size == 2: #2x2 determinant
+        result = (matrix[0,0]*matrix[1,1]) - (matrix[0,1]*matrix[1,0])
+        return result
+
+    else: #recursive function to get to 2x2
+        result = 0
+        for i in range(size):
+
+            cofactor = np.zeros((size-1, size-1))
+
+            for j in range(1, size):
+                for k in range(size):
+
+                    if k < i:
+                        cofactor[j-1][k] = matrix[j][k]
+                    elif k > i:
+                        cofactor[j-1][k-1] = matrix[j][k]
+                    else:
+                        continue
+
+            result += determinant(cofactor) * matrix[0,i] *((-1)**i)
+
+    return result
 
 
 #Euler's Method
@@ -100,3 +126,15 @@ print(answer)
 matrix = np.array([[2, -1, 1, 6], [1, 3, 1, 0], [-1, 5, 4, -3]], dtype=np.double)
 answer3 = gaussian_elimination(matrix)
 print(answer3)
+
+
+#Implement LU Factorization for the following matrix and do the following
+        #1 1 0 3
+        #2 1 −1 1
+        #3 −1 −1 2
+        #−1 2 3 −1
+matrix = np.array([[1, 1, 0, 3], [2, 1, -1, 1], [3, -1, -1, 2], [-1, 2, 3, -1]])
+
+    #Print out the matrix determinant
+answer4a = determinant(matrix)
+print(answer4a)
